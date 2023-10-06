@@ -22,6 +22,7 @@ set incsearch
 set ruler
 set cursorline
 set ignorecase
+set mouse=a
 set so=5
 set vb t_vb=
 inoremap <c-u> <c-g>u<c-u>
