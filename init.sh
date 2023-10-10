@@ -169,15 +169,15 @@ ForDocker()
 Fetch()
 {
     print 'Configuring profiles'
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/cfg/main/.zprofile' > $HOME/.zshrc
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/cfg/main/.tmux.conf' > $HOME/.tmux.conf
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/cfg/main/.screenrc' > $HOME/.screenrc
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/cfg/main/.vimrc' > $HOME/.vimrc
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/cfg/main/brewfile' > $HOME/brewfile
+    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.zprofile' > $HOME/.zshrc
+    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.tmux.conf' > $HOME/.tmux.conf
+    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.screenrc' > $HOME/.screenrc
+    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.vimrc' > $HOME/.vimrc
+    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/brewfile' > $HOME/brewfile
     mkdir $HOME/.config
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/cfg/main/init.vim' > $HOME/.config/init.vim
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/cfg/main/.vscodevimrc' > $HOME/.vscodevimrc
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/cfg/main/.clang-format' > $HOME/.clang-format
+    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/init.vim' > $HOME/.config/init.vim
+    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.vscodevimrc' > $HOME/.vscodevimrc
+    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.clang-format' > $HOME/.clang-format
 }
 
 OS="$(uname)"
