@@ -176,14 +176,12 @@ Fetch()
     curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/brewfile' > $HOME/brewfile
     mkdir $HOME/.config
     curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/init.vim' > $HOME/.config/init.vim
-    curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.vscodevimrc' > $HOME/.vscodevimrc
     curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.clang-format' > $HOME/.clang-format
 }
 
 OS="$(uname)"
 pushd $HOME > /dev/null
 if [[ "$OS" -eq "Darwin" ]]; then 
-    mkdir -p .config/nvim
     if [[ "$FETCHONLY" -eq "1" ]]; then
         if [[ "$ALL" -eq "1" ]]; then
             abort "Wrong option $OPTARG"
