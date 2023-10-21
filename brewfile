@@ -10,6 +10,7 @@ cask "visual-studio-code"
 cask "xquartz"
 cask "hashicorp-vagrant"
 cask "karabiner-elements"
+cask "google-chrome"
 
 brew "git"
 brew "zsh"
