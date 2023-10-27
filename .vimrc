@@ -25,6 +25,7 @@ set ignorecase
 set mouse=a
 set so=5
 set vb t_vb=
+set laststatus=2
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 map K <Nop>
@@ -58,10 +59,12 @@ highlight PmenuSel term=bold cterm=none ctermbg=blue ctermfg=None gui=bold
 highlight Comment ctermfg=green
 
 if &background=="light"
+  highlight StatusLine term=bold cterm=none ctermbg=255 ctermfg=none gui=bold
   highlight CursorLine term=bold cterm=none ctermbg=255 ctermfg=none gui=bold
   highlight CursorLineNr term=bold cterm=none ctermbg=255 ctermfg=black gui=bold
   highlight ColorColumn term=bold cterm=none ctermbg=255 ctermfg=none gui=bold
 else
+  highlight StatusLine term=bold cterm=none ctermbg=238 ctermfg=none gui=bold
   highlight CursorLine term=bold cterm=none ctermbg=238 ctermfg=none gui=bold
   highlight CursorLineNr term=bold cterm=none ctermbg=238 ctermfg=none gui=bold
   highlight LineNr term=bold cterm=none ctermbg=None ctermfg=darkgray gui=bold
