@@ -25,6 +25,7 @@ set ignorecase
 set mouse=a
 set so=5
 set vb t_vb=
+set statusline+=%F
 set laststatus=2
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
