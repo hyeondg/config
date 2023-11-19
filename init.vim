@@ -10,8 +10,12 @@ call plug#begin()
   " autocomplete
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
   Plug 'hrsh7th/nvim-cmp'
+
   Plug 'dcampos/nvim-snippy'
   Plug 'dcampos/cmp-snippy'
 call plug#end()
@@ -40,7 +44,7 @@ set wildmenu
 set showcmd
 set softtabstop=-1
 set shiftwidth=0
-set tabstop=2
+set tabstop=4
 set expandtab
 set smarttab
 set smartindent
