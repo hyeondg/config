@@ -2,7 +2,7 @@ call plug#begin()
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'sheerun/vim-polyglot'
-  Plug 'jiangmiao/auto-pairs'
+  Plug 'windwp/nvim-autopairs'
   Plug 'preservim/nerdtree'
   Plug 'plasticboy/vim-markdown'
   Plug 'folke/trouble.nvim'
@@ -67,6 +67,7 @@ set ttimeoutlen=0
 set ruler
 set cursorline
 set colorcolumn=100
+set so=4
 set vb t_vb=
 set backspace=indent,eol,start
 
@@ -221,4 +222,6 @@ local servers = { 'clangd', 'pyright', 'texlab', 'solargraph', 'rust_analyzer' }
 for _, lsp in pairs(servers) do 
   lspconfig[lsp].setup{}
 end
+
+require("nvim-autopairs").setup{}
 EOF
