@@ -2,15 +2,15 @@ call plug#begin()
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'sheerun/vim-polyglot'
-  Plug 'windwp/nvim-autopairs'
   Plug 'preservim/nerdtree'
   Plug 'plasticboy/vim-markdown'
   Plug 'folke/trouble.nvim'
+  Plug 'echasnovski/mini.nvim'
 
   " autocomplete
-  Plug 'neovim/nvim-lspconfig'
   Plug 'williamboman/mason.nvim'
   Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
@@ -21,6 +21,7 @@ call plug#begin()
   Plug 'dcampos/nvim-snippy'
   Plug 'dcampos/cmp-snippy'
 call plug#end()
+
 
 colorscheme default
 " colorscheme peachpuff
@@ -39,6 +40,7 @@ set t_8f=[38;2;%lu;%lu;%lum
 set encoding=utf-8
 set nobackup
 set nowritebackup
+set nofoldenable
 set updatetime=300
 set signcolumn=yes
 set background=dark
@@ -69,7 +71,7 @@ set ttimeoutlen=0
 set ruler
 set cursorline
 set colorcolumn=100
-set so=4
+set so=3
 set vb t_vb=
 set backspace=indent,eol,start
 
@@ -87,7 +89,7 @@ endif
 let g:rust_recommended_style=v:false
 let g:airline_theme='angr'
 let g:airline_section_c='%F'
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline_highlighting_cache = 1
 let g:airline_extensions = []
 let g:NERDTreeShowHidden = 1
@@ -133,6 +135,18 @@ local lspconfig = require("lspconfig")
 local trouble = require("trouble")
 require("mason").setup{}
 require("mason-lspconfig").setup{}
+
+require('mini.align').setup{}
+require('mini.operators').setup{}
+require('mini.surround').setup{}
+require('mini.hipatterns').setup{}
+require('mini.comment').setup{}
+require('mini.completion').setup{}
+-- require('mini.indentscope').setup{ draw = { delay=0, }, symbol = '|' }
+require('mini.indentscope').gen_animation.none()
+require('mini.pairs').setup{}
+require('mini.starter').setup{}
+
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -192,12 +206,14 @@ cmp.setup({
 vim.o.updatetime = 200
 
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = { prefix = '■', -- Could be '■', '▎', 'x' 
+  },
   signs = true,
   underline = true,
   update_in_insert = false,
   severity_sort = true,
 })
+
 
 vim.api.nvim_create_autocmd("CursorHold", {
   buffer = bufnr,
@@ -209,6 +225,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
       source = 'always',
       prefix = ' ',
       scope = 'cursor',
+      style = 'minimal',
     }
     vim.diagnostic.open_float(nil, opts)
   end
@@ -218,7 +235,7 @@ local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
   opts.border = opts.border or 'single'
-  opts.max_width= opts.max_width or 100
+  opts.max_width= opts.max_width or 120
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
@@ -228,11 +245,41 @@ for _, lsp in pairs(servers) do
 end
 
 
-require("nvim-autopairs").setup{}
 
 require('lspconfig').grammarly.setup{
      on_attach = on_attach,
      init_options = { clientId = "client_BaDkMgx4X19X9UxxYRCXZo" }
 }
+
+--[[
+local original = vim.lsp.handlers['textDocument/publishDiagnostics']
+vim.lsp.handlers['textDocument/publishDiagnostics'] = function(_, result, ctx, config)
+   vim.tbl_map(function(item)
+      if item.relatedInformation and #item.relatedInformation > 0 then
+         vim.tbl_map(function(k)
+            if k.location then
+               local tail = vim.fn.fnamemodify(vim.uri_to_fname(k.location.uri), ':t')
+               k.message = tail ..
+                   '(' .. (k.location.range.start.line + 1) .. ', ' .. (k.location.range.start.character + 1) ..
+                   '): ' .. k.message
+
+               if k.location.uri == vim.uri_from_bufnr(0) then
+                  table.insert(result.diagnostics, {
+                     code = item.code,
+                     message = k.message,
+                     range = k.location.range,
+                     severity = vim.lsp.protocol.DiagnosticSeverity.Hint,
+                     source = item.source,
+                     relatedInformation = {},
+                  })
+               end
+            end
+            item.message = item.message .. '\n' .. k.message
+         end, item.relatedInformation)
+      end
+   end, result.diagnostics)
+   original(_, result, ctx, config)
+end
+--]]
 
 EOF
