@@ -9,6 +9,8 @@ call plug#begin()
 
   " autocomplete
   Plug 'neovim/nvim-lspconfig'
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
@@ -44,7 +46,7 @@ set wildmenu
 set showcmd
 set softtabstop=-1
 set shiftwidth=0
-set tabstop=4
+set tabstop=2
 set expandtab
 set smarttab
 set smartindent
@@ -129,6 +131,8 @@ lua <<EOF
 local cmp = require("cmp")
 local lspconfig = require("lspconfig")
 local trouble = require("trouble")
+require("mason").setup{}
+require("mason-lspconfig").setup{}
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -218,10 +222,17 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local servers = { 'clangd', 'pyright', 'texlab', 'solargraph', 'rust_analyzer' }
+local servers = { 'clangd', 'pyright', 'rust_analyzer' }
 for _, lsp in pairs(servers) do 
   lspconfig[lsp].setup{}
 end
 
+
 require("nvim-autopairs").setup{}
+
+require('lspconfig').grammarly.setup{
+     on_attach = on_attach,
+     init_options = { clientId = "client_BaDkMgx4X19X9UxxYRCXZo" }
+}
+
 EOF
