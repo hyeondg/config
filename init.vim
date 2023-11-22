@@ -4,8 +4,9 @@ call plug#begin()
   Plug 'sheerun/vim-polyglot'
   Plug 'preservim/nerdtree'
   Plug 'plasticboy/vim-markdown'
-  Plug 'folke/trouble.nvim'
   Plug 'echasnovski/mini.nvim'
+  Plug 'windwp/nvim-autopairs'
+  Plug 'dgagn/diagflow.nvim'
 
   " autocomplete
   Plug 'williamboman/mason.nvim'
@@ -22,19 +23,17 @@ call plug#begin()
   Plug 'dcampos/cmp-snippy'
 call plug#end()
 
-
 colorscheme default
 " colorscheme peachpuff
 map K <Nop>
 map Q <Nop>
 nnoremap <c-a> :NERDTreeToggle<CR>
-nnoremap <c-t> :TroubleToggle<CR>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 
 filetype plugin indent on
 syntax on
-set t_Co=256
+
 set t_8b=[48;2;%lu;%lu;%lum
 set t_8f=[38;2;%lu;%lu;%lum
 set encoding=utf-8
@@ -48,7 +47,7 @@ set wildmenu
 set showcmd
 set softtabstop=-1
 set shiftwidth=0
-set tabstop=2
+set tabstop=4
 set expandtab
 set smarttab
 set smartindent
@@ -65,12 +64,11 @@ set incsearch
 set completeopt=noinsert,menu,menuone,noselect
 set hidden
 set inccommand=split
-set number
+set nu
 set title
 set ttimeoutlen=0
 set ruler
 set cursorline
-set colorcolumn=100
 set so=3
 set vb t_vb=
 set backspace=indent,eol,start
@@ -99,11 +97,6 @@ let g:NERDTreeIgnore = []
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Colorscheme
-highlight Pmenu term=bold cterm=none ctermbg=236 ctermfg=None gui=bold
-highlight PmenuSel term=bold cterm=none ctermbg=darkblue ctermfg=None gui=bold
-highlight Comment ctermfg=green
-highlight SignColumn ctermbg=None
-
 if &background=="light"
   highlight CursorLine term=bold cterm=none ctermbg=255 ctermfg=none gui=bold
   highlight CursorLineNr term=bold cterm=none ctermbg=255 ctermfg=black gui=bold
@@ -114,6 +107,15 @@ else
   highlight LineNr term=bold cterm=none ctermbg=None ctermfg=darkgray gui=bold
   highlight ColorColumn term=bold cterm=none ctermbg=237 ctermfg=none gui=bold
 endif
+
+highlight Pmenu term=bold cterm=none ctermbg=236 ctermfg=None gui=bold
+highlight PmenuSel term=bold cterm=none ctermbg=darkblue ctermfg=None gui=bold
+highlight Comment ctermfg=green
+highlight SignColumn ctermbg=None
+highlight DiagnosticFloatingError ctermfg=Red       ctermbg=238
+highlight DiagnosticFloatingWarn  ctermfg=Magenta   ctermbg=238
+highlight DiagnosticFloatingInfo  ctermfg=Blue      ctermbg=238
+highlight DiagnosticFloatingHint  ctermfg=Green     ctermbg=238
 
 " Commands
 augroup commenting_blocks_of_code
@@ -128,45 +130,54 @@ augroup END
 noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
-
 lua <<EOF
 local cmp = require("cmp")
 local lspconfig = require("lspconfig")
-local trouble = require("trouble")
-require("mason").setup{}
-require("mason-lspconfig").setup{}
-
+require('mason').setup{}
+require('mason-lspconfig').setup{}
 require('mini.align').setup{}
 require('mini.operators').setup{}
 require('mini.surround').setup{}
 require('mini.hipatterns').setup{}
 require('mini.comment').setup{}
 require('mini.completion').setup{}
--- require('mini.indentscope').setup{ draw = { delay=0, }, symbol = '|' }
-require('mini.indentscope').gen_animation.none()
+require('mini.indentscope').setup{ draw = { delay=0, animation=function(s, n) return 0 end}, symbol = ':' }
 require('mini.pairs').setup{}
-require('mini.starter').setup{}
+require('mini.trailspace').setup{}
+require('mini.tabline').setup{}
+require('nvim-autopairs').setup{}
+require('diagflow').setup({
+    enable = true,
+    max_width = 60,  -- The maximum width of the diagnostic messages
+    max_height = 10, -- the maximum height per diagnostics
+    severity_colors = {  -- The highlight groups to use for each diagnostic severity level
+      error = "DiagnosticFloatingError",
+      warning = "DiagnosticFloatingWarn",
+      info = "DiagnosticFloatingInfo",
+      hint = "DiagnosticFloatingHint",
+    },
+    format = function(diagnostic)
+      local s = {"#e", "#w", "#i", "#h"}
+      local t = diagnostic.severity
+      return string.format("%s: %s;", s[t], diagnostic.message)
+    end,
+    gap_size = 0,
+    scope = 'line', -- 'cursor', 'line' this changes the scope, so instead of showing errors under the cursor, it shows errors on the entire line.
+    padding_top = 0,
+    padding_right = 0,
+    text_align = 'left', -- 'left', 'right'
+    placement = 'top', -- 'top', 'inline'
+    inline_padding_left = 1, -- the padding left when the placement is inline
+    update_event = { 'DiagnosticChanged', 'BufReadPost', }, -- the event that updates the diagnostics cache
+    toggle_event = { }, -- if InsertEnter, can toggle the diagnostics on inserts
+    show_sign = false, -- set to true if you want to render the diagnostic sign before the diagnostic message
+    render_event = { 'DiagnosticChanged', 'CursorMoved' }
+})
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
-
-trouble.setup({
-  height = 6,
-  icons = false,
-  padding = false,
-  indent_lines = false,
-  auto_open = false,
-  auto_close = false,
-  signs = {
-    error = "Error",
-    warning = "Warning",
-    hint = "Hint",
-    information = "Info",
-  },
-  use_diagnostic_signs = false
-})
 
 cmp.setup({
   sources = cmp.config.sources({
@@ -205,81 +216,14 @@ cmp.setup({
 
 vim.o.updatetime = 200
 
-vim.diagnostic.config({
-  virtual_text = { prefix = '■', -- Could be '■', '▎', 'x' 
-  },
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-})
-
-
-vim.api.nvim_create_autocmd("CursorHold", {
-  buffer = bufnr,
-  callback = function()
-    local opts = {
-      focusable = false,
-      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-      border = 'rounded',
-      source = 'always',
-      prefix = ' ',
-      scope = 'cursor',
-      style = 'minimal',
-    }
-    vim.diagnostic.open_float(nil, opts)
-  end
-})
-
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or 'single'
-  opts.max_width= opts.max_width or 120
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
-
 local servers = { 'clangd', 'pyright', 'rust_analyzer' }
-for _, lsp in pairs(servers) do 
+for _, lsp in pairs(servers) do
   lspconfig[lsp].setup{}
 end
 
-
-
 require('lspconfig').grammarly.setup{
-     on_attach = on_attach,
-     init_options = { clientId = "client_BaDkMgx4X19X9UxxYRCXZo" }
+  on_attach = on_attach,
+  init_options = { clientId = "client_BaDkMgx4X19X9UxxYRCXZo" }
 }
-
---[[
-local original = vim.lsp.handlers['textDocument/publishDiagnostics']
-vim.lsp.handlers['textDocument/publishDiagnostics'] = function(_, result, ctx, config)
-   vim.tbl_map(function(item)
-      if item.relatedInformation and #item.relatedInformation > 0 then
-         vim.tbl_map(function(k)
-            if k.location then
-               local tail = vim.fn.fnamemodify(vim.uri_to_fname(k.location.uri), ':t')
-               k.message = tail ..
-                   '(' .. (k.location.range.start.line + 1) .. ', ' .. (k.location.range.start.character + 1) ..
-                   '): ' .. k.message
-
-               if k.location.uri == vim.uri_from_bufnr(0) then
-                  table.insert(result.diagnostics, {
-                     code = item.code,
-                     message = k.message,
-                     range = k.location.range,
-                     severity = vim.lsp.protocol.DiagnosticSeverity.Hint,
-                     source = item.source,
-                     relatedInformation = {},
-                  })
-               end
-            end
-            item.message = item.message .. '\n' .. k.message
-         end, item.relatedInformation)
-      end
-   end, result.diagnostics)
-   original(_, result, ctx, config)
-end
---]]
 
 EOF
