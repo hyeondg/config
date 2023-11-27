@@ -141,7 +141,7 @@ require('mini.surround').setup{}
 require('mini.hipatterns').setup{}
 require('mini.comment').setup{}
 require('mini.completion').setup{}
-require('mini.indentscope').setup{ draw = { delay=0, animation=function(s, n) return 0 end}, symbol = ':' }
+require('mini.indentscope').setup{ draw = { delay=0, animation=function(s, n) return 0 end}, symbol = '⎸' }
 require('mini.pairs').setup{}
 require('mini.trailspace').setup{}
 require('mini.tabline').setup{}
