@@ -1,6 +1,5 @@
 tap "homebrew/bundle"
 tap "homebrew/cask-versions"
-tap "hashicorp/tap"
 
 cask "tg-pro"
 cask "iterm2"
@@ -8,7 +7,6 @@ cask "docker"
 cask "miniconda"
 cask "visual-studio-code"
 cask "xquartz"
-cask "hashicorp-vagrant"
 
 brew "git"
 brew "zsh"
