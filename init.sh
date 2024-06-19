@@ -227,6 +227,7 @@ elif [[ "$OS" == "Linux" ]]; then
 		# Fedora
 		sudo dnf update -y
 		sudo dnf install -y git cmake clang wget htop
+		sudo dnf install -y fedora-repos-rawhide
 		sudo dnf install -y fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5 fcitx5-autostart
 		sudo dnf install -y kernel-devel kernel-headers dkms libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
 
