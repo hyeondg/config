@@ -1,5 +1,4 @@
 tap "homebrew/bundle"
-tap "homebrew/cask-versions"
 
 cask "tg-pro"
 cask "iterm2"
@@ -14,8 +13,10 @@ brew "binutils"
 brew "aria2"
 brew "tmux"
 brew "make"
+brew "glib"
 brew "cmake"
 brew "node"
 brew "wget"
 brew "neovim"
 brew "mas"
+
