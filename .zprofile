@@ -6,6 +6,7 @@ export LANG=en_US.UTF-8
 export PATH="$HOME/.cargo/bin:$PATH"
 export CPATH=/opt/homebrew/include
 export LIBRARY_PATH=/opt/homebrew/lib
+export DYLD_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_LIBRARY_PATH"
 export CONDA_AUTO_ACTIVATE_BASE=true
 export CLICOLOR=1
 export DISPLAY=:0
