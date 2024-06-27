@@ -227,23 +227,13 @@ elif [[ "$OS" == "Linux" ]]; then
 		# Fedora
 		sudo dnf update -y
 		sudo dnf install -y git cmake clang wget htop
-		sudo dnf clean all
-		sudo dnf module install nvidia-driver:latest-dkms
-		sudo dnf install cuda
-		sudo dnf install -y fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5 fcitx5-autostart
-		sudo dnf install -y kernel-devel kernel-headers dkms libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
+		#sudo dnf install -y fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5 fcitx5-autostart
+		#sudo dnf install -y kernel-devel kernel-headers dkms libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
 
 	else
 		print "Running apt-get"
 		sudo apt-get update
 		sudo apt-get install -y git wget curl bash tmux htop
-
-		# install nvim
-		wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-		tar -xvf nvim-linux64.tar.gz && cd nvim-linux64
-		sudo cp -r bin/* /usr/local/bin/
-		sudo cp -r lib/* /usr/local/lib/
-		sudo cp -r share/* /usr/local/share/
 	fi
 
 	# Fetch config files
