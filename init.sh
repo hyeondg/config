@@ -250,8 +250,7 @@ elif [[ "$OS" == "Linux" ]]; then
 	rm -rf ~/miniconda3/miniconda.sh
 	~/miniconda3/bin/conda init bash
 
-	# Save git credential for 15 minutes
-	# git config --global credential.helper 'cache --timeout=3600'
+	# Save git credential 
 	git config --global credential.helper cache
 
 	# Install vimplug
