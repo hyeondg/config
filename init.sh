@@ -233,7 +233,11 @@ elif [[ "$OS" == "Linux" ]]; then
 	else
 		print "Running apt-get"
 		sudo apt-get update
+ 		sudo apt-get upgrade
 		sudo apt-get install -y git wget curl bash tmux htop
+   		sudo apt-get install -y flatpak
+     		flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+     
 	fi
 
 	# Fetch config files
