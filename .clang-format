@@ -1,0 +1,15 @@
+---
+Language: Cpp
+Standard: c++17
+BasedOnStyle: google
+AccessModifierOffset: -2
+IndentWidth: 2
+BreakBeforeBraces: Attach
+ColumnLimit: 0
+Cpp11BracedListStyle: true
+SpaceBeforeCpp11BracedList: true
+PointerAlignment: Left
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+---

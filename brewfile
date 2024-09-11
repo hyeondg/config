@@ -1,0 +1,23 @@
+tap "homebrew/bundle"
+
+cask "tg-pro"
+cask "iterm2"
+cask "docker"
+cask "miniconda"
+cask "xquartz"
+cask "hiddenbar"
+
+brew "git"
+brew "zsh"
+brew "binutils"
+brew "aria2"
+brew "tmux"
+brew "make"
+brew "glib"
+brew "cmake"
+brew "node"
+brew "wget"
+brew "neovim"
+brew "mas"
+brew "cocoapods"
+
