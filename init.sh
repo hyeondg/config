@@ -232,6 +232,7 @@ elif [[ "$OS" == "Linux" ]]; then
     # sudo dnf install -y fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5 fcitx5-autostart
     # sudo dnf install -y langpacks-ja langpacks-ko terminus-fonts-console
     # sudo dnf install -y plasma-workspace-x11
+    # sudo dnf install -y akmod-nvidia akmod-nvidia 
     # sudo dnf install -y kernel-devel kernel-headers dkms libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
 
     # RPM Fusion
@@ -253,7 +254,7 @@ elif [[ "$OS" == "Linux" ]]; then
 
     print "Running apt-get"
     sudo apt-get update
-     sudo apt-get upgrade
+    sudo apt-get upgrade
     sudo apt-get install -y git wget curl bash tmux htop
     sudo apt-get install -y flatpak
     #sudo apt install cuda-drivers-555 cuda-toolkit-12-5
@@ -279,8 +280,7 @@ elif [[ "$OS" == "Linux" ]]; then
   git config --global credential.helper cache
 
   # Install vimplug
-  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  sh -c `curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 
 fi
 
