@@ -287,6 +287,7 @@ elif [[ "$OS" == "Linux" ]]; then
   bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
   rm -rf ~/miniconda3/miniconda.sh
   ~/miniconda3/bin/conda init bash
+  ~/miniconda3/bin/conda config --set auto_activate_base false
 
   # Save git credential 
   git config --global credential.helper cache
