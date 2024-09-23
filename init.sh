@@ -232,7 +232,7 @@ elif [[ "$OS" == "Linux" ]]; then
     # sudo dnf install -y fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5 fcitx5-autostart
     # sudo dnf install -y langpacks-ja langpacks-ko terminus-fonts-console
     # sudo dnf install -y plasma-workspace-x11
-    # sudo dnf install -y akmod-nvidia akmod-nvidia 
+    # sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
     # sudo dnf install -y kernel-devel kernel-headers dkms libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
 
     # RPM Fusion
@@ -240,15 +240,23 @@ elif [[ "$OS" == "Linux" ]]; then
     sudo dnf update @core
 
     # Docker
-    sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-    sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    # dnf4
+    # sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+    # sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+    # dnf5 workaround
+    REPO_URL="https://download.docker.com/linux/fedora/docker-ce.repo"
+    TMP_REPO_FILE="$(mktemp --dry-run)"
+		curl -fsSL "${REPO_URL}" | tr -s '\n' > "${TMP_REPO_FILE}"
+    sudo dnf5 config-manager addrepo --save-filename=docker-ce.repo --from-repofile="${REPO_URL}"
+    sudo dnf5 install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     sudo usermod -aG docker $USER
 
     sudo systemctl enable docker.service
     sudo systemctl enable containerd.service
 
     # HiDPI
-    sudo echo "FONT="ter-m32n" >> /etc/vconsole.conf
+    sudo /bin/bash -c 'echo FONT=\"ter-m32n\" >> /etc/vconsole.conf'
 
   else
 
