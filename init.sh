@@ -247,7 +247,7 @@ elif [[ "$OS" == "Linux" ]]; then
     # dnf5 workaround
     REPO_URL="https://download.docker.com/linux/fedora/docker-ce.repo"
     TMP_REPO_FILE="$(mktemp --dry-run)"
-		curl -fsSL "${REPO_URL}" | tr -s '\n' > "${TMP_REPO_FILE}"
+    curl -fsSL "${REPO_URL}" | tr -s '\n' > "${TMP_REPO_FILE}"
     sudo dnf5 config-manager addrepo --save-filename=docker-ce.repo --from-repofile="${REPO_URL}"
     sudo dnf5 install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     sudo usermod -aG docker $USER
@@ -263,14 +263,40 @@ elif [[ "$OS" == "Linux" ]]; then
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
   else
+    # Ubuntu
 
     print "Running apt-get"
     sudo apt-get update
-    sudo apt-get upgrade
-    sudo apt-get install -y git wget curl bash tmux htop
+    sudo apt-get install npm git cmake clang wget htop tmux neovim xclip xrdp fcitx5 fcitx5-hangul fcitx5-anthy language-pack-ko language-pack-ja
+
     sudo apt-get install -y flatpak
-    #sudo apt install cuda-drivers-555 cuda-toolkit-12-5
     flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+    echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
+    sudo apt-get install wget gpg
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
+    rm -f packages.microsoft.gpg
+    sudo apt install apt-transport-https
+    sudo apt update
+    sudo apt install code # or code-insiders
+
+
+    # Add Docker's official GPG key:
+    sudo apt-get install ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+    # Add the repository to Apt sources:
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
   fi
 
