@@ -6,8 +6,7 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30
 export PATH=/opt/nvim/:/opt/hyeondg/bin/:/usr/local/cuda/bin/:$PATH
 export LD_LIBRARY_PATH=/opt/hyeondg/lib/:/usr/local/cuda/lib64/:$LD_LIBRARY_PATH
 export EDITOR='vi'
-export PS1='[\[\033[01;32m\]\u@\h\[\033[01;34m\]:\w\[\033[00m\]]\$ '
+export PS1='[\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[01;31m\]${?#0}\[\033[00m\]]\$ '
 unset command_not_found_handle
 set -o vi
 alias ls='ls --color'
-
