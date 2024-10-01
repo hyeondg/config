@@ -234,6 +234,8 @@ elif [[ "$OS" == "Linux" ]]; then
     # sudo dnf install -y plasma-workspace-x11
     # sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
     # sudo dnf install -y kernel-devel kernel-headers dkms libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
+    # sudo dnf install -y gmp-devel mpfr-devel libmpc-devel glibc-devel.i686 libgcc.i686
+    # sudo dnf group install -y "Development Tools"
 
     # RPM Fusion
     sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
