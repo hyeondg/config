@@ -49,6 +49,7 @@ let g:python_highlight_indent_errors=v:false
 let g:rust_recommended_style=v:false
 let g:NERDTreeShowHidden=1
 let g:NERDTreeIgnore=['\.DS_Store$', '\.git$']
+let g:NERDTreeWinPos="right"
 highlight VertSplit term=bold cterm=none gui=bold
 
 if exists('python_highlight_all')
@@ -59,6 +60,7 @@ if exists('python_space_error_highlight')
 endif
 
 set background=dark
+set fillchars=vert:\│
 
 "" Colorscheme
 "" ============================================================================
