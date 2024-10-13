@@ -60,4 +60,7 @@ require("neo-tree").setup({
 			end,
 		},
 	},
+	window = {
+		position = "right",
+	},
 })
