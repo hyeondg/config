@@ -1,5 +1,5 @@
 {
-  "editor.fontFamily": "Monaco, Noto Sans Mono, Liberation Mono, SF Mono, Menlo, monospace",
+  "editor.fontFamily": "Noto Sans Mono, Liberation Mono, SF Mono, Menlo, monospace",
   "editor.fontWeight": 400,
   "[rust]": {
     "editor.formatOnSave": true,
