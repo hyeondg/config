@@ -28,15 +28,6 @@
   "terminal.integrated.letterSpacing": -0.45,
   "editor.cursorSurroundingLines": 5,
   "editor.cursorBlinking": "solid",
-  "workbench.colorCustomizations": {
-    "editorInlayHint.background": "#00000000",
-    "editorInlayHint.foreground": "#666666FF",
-    "statusBar.foreground": "#ffffff",
-    "statusBar.debuggingForeground": "#ffffff",
-    "statusBar.background": "#5f00af",
-    "statusBar.noFolderBackground": "#5f00af",
-    "statusBar.debuggingBackground": "#5f00af"
-  },
   "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, AlwaysBreakAfterDefinitionReturnType: All, ColumnLimit: 120, PointerAlignment: Left }",
   "editor.inlayHints.padding": true,
   "editor.inlayHints.fontFamily": "sans-serif",
@@ -45,7 +36,6 @@
   "vim.hlsearch": true,
   "vim.easymotion": true,
   "vim.camelCaseMotion.enable": true,
-  "vim.easymotionMarkerBackgroundColor": "#3C6478",
   "vim.handleKeys": {
     "<C-n>": false,
     "<C-p>": false,
@@ -73,8 +63,6 @@
   "terminal.integrated.sendKeybindingsToShell": true,
   "window.titleBarStyle": "native",
   "update.mode": "none",
-  "vim.statusBarColorControl": true,
-  "vim.statusBarColors.insert": "#8C1515",
   "extensions.autoUpdate": false,
   "extensions.autoCheckUpdates": false,
   "update.showReleaseNotes": false,
@@ -84,5 +72,5 @@
   "editor.autoClosingComments": "never",
   "workbench.fontAliasing": "antialiased",
   "workbench.tree.indent": 4,
-  "workbench.colorTheme": "Nord"
+  "workbench.colorTheme": "Nord",
 }
