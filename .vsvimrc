@@ -1,0 +1,13 @@
+set ignorecase
+set smartcase
+set incsearch
+set backspace=eol,start,indent
+set hlsearch
+set autoindent
+set cinoptions=:0,l1,g0
+set cindent
+set softtabstop=-1
+set shiftwidth=0
+set tabstop=4
+set smarttab
+set expandtab
