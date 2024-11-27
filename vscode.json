@@ -72,5 +72,5 @@
   "editor.autoClosingComments": "never",
   "workbench.fontAliasing": "antialiased",
   "workbench.tree.indent": 4,
-  "workbench.colorTheme": "Nord",
+  "workbench.colorTheme": "GitHub Light",
 }
