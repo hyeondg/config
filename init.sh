@@ -310,6 +310,9 @@ elif [[ "$OS" == "Linux" ]]; then
     
     # xrdp into ssl-cert group
     sudo adduser xrdp ssl-cert  
+    
+    # langauge support
+    sudo apt install $(check-language-support -l en)
   fi
 
   # Fetch config files
