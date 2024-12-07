@@ -108,8 +108,8 @@ run_install() {
       ;;
     "vim_p")
       run() {
-        /bin/sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs 
-                    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        /bin/sh -c 'curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
       }
       ;;
     "vag_p")
