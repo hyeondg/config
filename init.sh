@@ -135,9 +135,6 @@ Fetch() {
   curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.screenrc' >$HOME/.screenrc
   curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.vimrc' >$HOME/.vimrc
   curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/brewfile' >$HOME/brewfile
-  mkdir $HOME/.config
-  curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/init.vim' >$HOME/.config/init.vim
-  curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.clang-format' >$HOME/.clang-format
 }
 
 # #################################################################################################################
@@ -206,8 +203,8 @@ if [[ "$OS" == "Darwin" ]]; then
   ask_install "Install vim-plug"
   run_install "Installing vim-plug" "vim_p"
 
-  ask_install "Install vagrant-parallels"
-  run_install "Installing vagrant-parallels" "vag_p"
+  # ask_install "Install vagrant-parallels"
+  # run_install "Installing vagrant-parallels" "vag_p"
 
   print "Cleaning Up"
   rm brewfile 2>/dev/null
@@ -218,6 +215,7 @@ if [[ "$OS" == "Darwin" ]]; then
   defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>file:///System/Applications/Launchpad.app/</string><key>_CFURLStringType</key><integer>15</integer></dict></dict></dict>"
   killall cfprefsd
   killall Dock
+  
 elif [[ "$OS" == "Linux" ]]; then
   mkdir -p $HOME/.config/nvim/
   mkdir -p $HOME/bin/
