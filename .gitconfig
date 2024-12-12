@@ -1,0 +1,6 @@
+[user]
+    name = hyeondg
+    email = me@hyeondg.org
+
+[credential]
+    helper = cache
