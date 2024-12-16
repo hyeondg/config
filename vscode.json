@@ -1,5 +1,5 @@
 {
-  "editor.fontFamily": "Noto Sans Mono, Liberation Mono, SF Mono, Menlo, monospace",
+  "editor.fontFamily": "Noto Sans Mono, Liberation Mono, SF Mono, Menlo, Consolas, monospace",
   "editor.fontWeight": 400,
   "[rust]": {
     "editor.formatOnSave": true,
@@ -55,13 +55,12 @@
   "editor.fontSize": 14,
   "editor.minimap.autohide": true,
   "files.trimTrailingWhitespace": true,
-  "workbench.iconTheme": "vs-minimal",
   "vim.smartRelativeLine": true,
   "notebook.compactView": false,
   "notebook.stickyScroll.mode": "flat",
   "notebook.output.scrolling": false,
   "terminal.integrated.sendKeybindingsToShell": true,
-  "window.titleBarStyle": "native",
+  "window.titleBarStyle": "custom",
   "update.mode": "none",
   "extensions.autoUpdate": false,
   "extensions.autoCheckUpdates": false,
@@ -72,5 +71,5 @@
   "editor.autoClosingComments": "never",
   "workbench.fontAliasing": "antialiased",
   "workbench.tree.indent": 4,
-  "workbench.colorTheme": "GitHub Light",
+  "workbench.colorTheme": "GitHub Dark",
 }
