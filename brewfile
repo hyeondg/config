@@ -5,6 +5,7 @@ cask "aldente"
 cask "iterm2"
 cask "xquartz"
 cask "hiddenbar"
+cask "vlc"
 
 brew "git"
 brew "zsh"
