@@ -1,0 +1,6 @@
+[wsl2]
+memory=192GB
+swap=0GB
+localhostForwarding=True
+guiApplications=False
+nestedVirtualization=True
