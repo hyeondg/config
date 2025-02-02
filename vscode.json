@@ -1,6 +1,4 @@
 {
-  "editor.fontFamily": "Noto Sans Mono, Liberation Mono, SF Mono, Menlo, Consolas, monospace",
-  "editor.fontWeight": 400,
   "[rust]": {
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true
@@ -16,10 +14,21 @@
     "--ignore=E121",
     "--max-line-length=180"
   ],
+  "vim.handleKeys": {
+    "<C-n>": false,
+    "<C-p>": false,
+    "<C-a>": false
+  },
+  "editor.fontFamily": "Noto Sans Mono, Liberation Mono, SF Mono, Cascadia Mono, Menlo, Consolas, monospace",
+  "editor.fontWeight": 400,
   "security.workspace.trust.untrustedFiles": "open",
   "jupyter.notebookFileRoot": "${workspaceFolder}",
   "vim.ignorecase": true,
   "vim.incsearch": true,
+  "vim.hlsearch": true,
+  "vim.easymotion": true,
+  "vim.camelCaseMotion.enable": true,
+  "vim.useSystemClipboard": true,
   "editor.scrollbar.verticalScrollbarSize": 50,
   "editor.wordWrapColumn": 120,
   "rust-analyzer.inlayHints.closureStyle": "rust_analyzer",
@@ -33,20 +42,10 @@
   "editor.inlayHints.fontFamily": "sans-serif",
   "terminal.integrated.defaultLocation": "editor",
   "git.openRepositoryInParentFolders": "never",
-  "vim.hlsearch": true,
-  "vim.easymotion": true,
-  "vim.camelCaseMotion.enable": true,
-  "vim.handleKeys": {
-    "<C-n>": false,
-    "<C-p>": false,
-    "<C-a>": false
-  },
-  "vim.useSystemClipboard": true,
   "editor.cursorStyle": "block",
   "workbench.reduceMotion": "on",
   "terminal.integrated.tabs.enableAnimation": false,
   "editor.inlayHints.enabled": "offUnlessPressed",
-  "editor.tabSize": 4,
   "notebook.formatOnCellExecution": true,
   "python.analysis.userFileIndexingLimit": -1,
   "notebook.lineNumbers": "on",
@@ -55,7 +54,6 @@
   "editor.fontSize": 14,
   "editor.minimap.autohide": true,
   "files.trimTrailingWhitespace": true,
-  "vim.smartRelativeLine": true,
   "notebook.compactView": false,
   "notebook.stickyScroll.mode": "flat",
   "notebook.output.scrolling": false,
@@ -64,12 +62,12 @@
   "update.mode": "none",
   "extensions.autoUpdate": false,
   "extensions.autoCheckUpdates": false,
-  "update.showReleaseNotes": false,
   "cmake.showOptionsMovedNotification": false,
   "remote.SSH.connectTimeout": 1800,
   "breadcrumbs.enabled": false,
   "editor.autoClosingComments": "never",
   "workbench.fontAliasing": "antialiased",
   "workbench.tree.indent": 4,
-  "workbench.colorTheme": "GitHub Dark",
+  "workbench.colorTheme": "Nord",
+  "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
 }
