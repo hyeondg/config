@@ -19,6 +19,19 @@
     "<C-p>": false,
     "<C-a>": false
   },
+  "vscode_custom_css.imports": [
+    "file:///Users/hyeondg/.vscode/custom.css"
+  ],
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "comment",
+        "settings": {
+          "fontStyle": "italic"
+        }
+      }
+    ]
+  },
   "editor.fontFamily": "Noto Sans Mono, Liberation Mono, SF Mono, Cascadia Mono, Menlo, Consolas, monospace",
   "editor.fontWeight": 400,
   "security.workspace.trust.untrustedFiles": "open",
