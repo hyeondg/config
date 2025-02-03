@@ -224,6 +224,7 @@ elif [[ "$OS" == "Linux" ]]; then
 
   if [[ $IS_UBUNTU = "" ]]; then
     # Fedora
+    sudo echo -e "[main]\nfastestmirror=True\nmax_parallel_downloads=10\ngpgcheck=True\ninstallonly_limit=3\nclean_requirements_on_remove=True\nbest=False\nskip_if_unavailable=True\n" | sudo tee /etc/dnf/dnf.conf > /dev/null
     sudo dnf update -y
     sudo dnf install -y vim git cmake clang wget htop tmux xclip xrdp certbot firewall-config wl-clipboard
     sudo dnf install 'dnf-command(versionlock)'
