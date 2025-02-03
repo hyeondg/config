@@ -227,7 +227,7 @@ elif [[ "$OS" == "Linux" ]]; then
     sudo dnf update -y
     sudo dnf install -y vim git cmake clang wget htop tmux xclip xrdp certbot firewall-config wl-clipboard
     sudo dnf install 'dnf-command(versionlock)'
-    sudo dnf install dnf-plugins-core fedora-repos-rawhide
+    sudo dnf install dnf-plugins-core fedora-repos-rawhide fedora-workstation-repositories
     # sudo dnf install -y fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5 fcitx5-autostart
     # sudo dnf install -y langpacks-ja langpacks-ko terminus-fonts-console
     # sudo dnf install -y plasma-workspace-x11
