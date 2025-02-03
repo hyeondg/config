@@ -32,7 +32,7 @@
       }
     ]
   },
-  "editor.fontFamily": "Noto Sans Mono, Liberation Mono, SF Mono, Cascadia Mono, Menlo, Consolas, monospace",
+  "editor.fontFamily": "Noto Sans Mono, SF Mono, Source Code Pro, Cascadia Mono, Menlo, Consolas, monospace",
   "editor.fontWeight": 400,
   "security.workspace.trust.untrustedFiles": "open",
   "jupyter.notebookFileRoot": "${workspaceFolder}",
@@ -47,7 +47,6 @@
   "rust-analyzer.inlayHints.closureStyle": "rust_analyzer",
   "editor.lineHeight": 1.4,
   "editor.letterSpacing": -0.45,
-  "terminal.integrated.letterSpacing": -0.45,
   "editor.cursorSurroundingLines": 5,
   "editor.cursorBlinking": "solid",
   "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, AlwaysBreakAfterDefinitionReturnType: All, ColumnLimit: 120, PointerAlignment: Left }",
