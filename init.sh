@@ -226,7 +226,7 @@ elif [[ "$OS" == "Linux" ]]; then
     # Fedora
     sudo echo -e "[main]\nfastestmirror=True\nmax_parallel_downloads=10\ngpgcheck=True\ninstallonly_limit=3\nclean_requirements_on_remove=True\nbest=False\nskip_if_unavailable=True\n" | sudo tee /etc/dnf/dnf.conf > /dev/null
     sudo dnf update -y
-    sudo dnf install -y vim git cmake clang wget htop tmux xclip xrdp certbot firewall-config wl-clipboard
+    sudo dnf install -y vim git cmake clang wget htop tmux xclip xrdp certbot firewall-config wl-clipboard luarocks
     sudo dnf install 'dnf-command(versionlock)'
     sudo dnf install dnf-plugins-core fedora-repos-rawhide fedora-workstation-repositories
     # sudo dnf install -y fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5 fcitx5-autostart
