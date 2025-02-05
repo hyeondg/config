@@ -215,7 +215,7 @@ if [[ "$OS" == "Darwin" ]]; then
   defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>file:///System/Applications/Launchpad.app/</string><key>_CFURLStringType</key><integer>15</integer></dict></dict></dict>"
   killall cfprefsd
   killall Dock
-  
+
 elif [[ "$OS" == "Linux" ]]; then
   mkdir -p $HOME/.config/nvim/
   mkdir -p $HOME/bin/
@@ -226,16 +226,19 @@ elif [[ "$OS" == "Linux" ]]; then
     # Fedora
     sudo echo -e "[main]\nfastestmirror=True\nmax_parallel_downloads=10\ngpgcheck=True\ninstallonly_limit=3\nclean_requirements_on_remove=True\nbest=False\nskip_if_unavailable=True\n" | sudo tee /etc/dnf/dnf.conf > /dev/null
     sudo dnf update -y
-    sudo dnf install -y vim git cmake clang wget htop tmux xclip xrdp certbot firewall-config wl-clipboard luarocks
     sudo dnf install 'dnf-command(versionlock)'
     sudo dnf install dnf-plugins-core fedora-repos-rawhide fedora-workstation-repositories
-    # sudo dnf install -y fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5 fcitx5-autostart
-    # sudo dnf install -y langpacks-ja langpacks-ko terminus-fonts-console
-    # sudo dnf install -y plasma-workspace-x11
-    # sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
-    # sudo dnf install -y kernel-devel kernel-headers dkms libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
+
+    sudo dnf install -y @development-tools @c-development
+    sudo dnf install -y kernel-devel kernel-headers dkms vim neovim git cmake wget htop tmux xclip xrdp xorgxrdp certbot firewall-config luarocks terminus-fonts-console
+    # IF Plasma
+    sudo dnf install -y wl-clipboard plasma-workspace-x11
+    sudo dnf install -y langpacks-ja langpacks-ko fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5
+    # IF Nvidia
+    sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
+
+    # sudo dnf install -y libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
     # sudo dnf install -y gmp-devel mpfr-devel libmpc-devel glibc-devel.i686 libgcc.i686
-    # sudo dnf group install -y "Development Tools"
 
     # RPM Fusion
     sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -253,8 +256,6 @@ elif [[ "$OS" == "Linux" ]]; then
     sudo dnf5 config-manager addrepo --save-filename=docker-ce.repo --from-repofile="${REPO_URL}"
     sudo dnf5 install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     sudo usermod -aG docker $USER
-    sudo systemctl enable docker.service
-    sudo systemctl enable containerd.service
 
     # HiDPI
     sudo /bin/bash -c 'echo FONT=\"ter-m32n\" >> /etc/vconsole.conf'
@@ -262,19 +263,21 @@ elif [[ "$OS" == "Linux" ]]; then
     # Nvidia
     curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | \
     sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
-    
-    # TODO: DNF5 support
-    sudo dnf config-manager --enable nvidia-container-toolkit-experimental
     sudo dnf install -y nvidia-container-toolkit
 
-    # code
+    # VSCODE
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
     sudo dnf install -y code # or code-insiders
 
+    sudo systemctl enable docker.service
+    sudo systemctl enable containerd.service
+    sudo systemctl enable firewalld
+    sudo systemctl enable xrdp
+    sudo systemctl enable sshd
+
   else
     # Ubuntu
-
     print "Running apt-get"
     sudo apt-get update
     sudo apt-get install curl certbot firewall-config git cmake clang wget htop tmux vim xclip xrdp fcitx5 fcitx5-hangul fcitx5-anthy language-pack-ko language-pack-ja openssh-server wl-clipboard
@@ -311,13 +314,15 @@ elif [[ "$OS" == "Linux" ]]; then
     sudo systemctl enable firewalld
     sudo systemctl enable xrdp
     sudo systemctl enable ssh
-    
+
     # xrdp into ssl-cert group
-    sudo adduser xrdp ssl-cert  
-    
+    sudo adduser xrdp ssl-cert
+
     # langauge support
     sudo apt install $(check-language-support -l en)
   fi
+
+
 
   # Fetch config files
   print "Fetching config files"
@@ -334,7 +339,7 @@ elif [[ "$OS" == "Linux" ]]; then
   ~/miniconda3/bin/conda init bash
   ~/miniconda3/bin/conda config --set auto_activate_base false
 
-  # Save git credential 
+  # Save git credential
   git config --global user.name 'hyeondg'
   git config --global user.email 'me@hyeondg.org'
   git config --global credential.helper cache
