@@ -221,34 +221,36 @@ elif [[ "$OS" == "Linux" ]]; then
   mkdir -p $HOME/bin/
 
   IS_UBUNTU=$(cat /etc/*-release | grep 'ubuntu')
+  IS_KDE=$(echo $XDG_CURRENT_DESKTOP | grep 'KDE')
 
   if [[ $IS_UBUNTU = "" ]]; then
     # Fedora
     sudo echo -e "[main]\nfastestmirror=True\nmax_parallel_downloads=10\ngpgcheck=True\ninstallonly_limit=3\nclean_requirements_on_remove=True\nbest=False\nskip_if_unavailable=True\n" | sudo tee /etc/dnf/dnf.conf > /dev/null
     sudo dnf update -y
     sudo dnf install 'dnf-command(versionlock)'
+     # RPM Fusion
+    sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
     sudo dnf install dnf-plugins-core fedora-repos-rawhide fedora-workstation-repositories
 
     sudo dnf install -y @development-tools @c-development
-    sudo dnf install -y kernel-devel kernel-headers dkms vim neovim git cmake wget htop tmux xclip xrdp xorgxrdp certbot firewall-config luarocks terminus-fonts-console
+    sudo dnf install -y kernel-devel kernel-headers dkms vim git cmake wget htop tmux xclip xrdp xorgxrdp certbot firewall-config
     # IF Plasma
-    sudo dnf install -y wl-clipboard plasma-workspace-x11
-    sudo dnf install -y langpacks-ja langpacks-ko fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5
+    if [[ $IS_KDE = "KDE" ]]; then
+      sudo dnf install -y neovim luarocks terminus-fonts-console wl-clipboard plasma-workspace-x11 google-chrome-stable
+      sudo dnf install -y langpacks-ja langpacks-ko fcitx5 fcitx5-hangul fcitx5-anthy kcm-fcitx5
+
+      mkdir -p $HOME/.local/share/fonts
+      curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/assets/snazzy.colorscheme' > $HOME/.local/share/konsole/snazzy.colorscheme
+      curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/assets/nord.colorscheme' > $HOME/.local/share/konsole/nord.colorscheme
+      git clone https://github.com/hyeondg/nvim-config.git ~/.config/nvim/
+    fi
     # IF Nvidia
     sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
 
     # sudo dnf install -y libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
     # sudo dnf install -y gmp-devel mpfr-devel libmpc-devel glibc-devel.i686 libgcc.i686
 
-    # RPM Fusion
-    sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-    sudo dnf update @core
-
     # Docker
-    # dnf4
-    # sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-    # sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
     # dnf5 workaround
     REPO_URL="https://download.docker.com/linux/fedora/docker-ce.repo"
     TMP_REPO_FILE="$(mktemp --dry-run)"
@@ -329,7 +331,6 @@ elif [[ "$OS" == "Linux" ]]; then
   curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.bashrc' >> $HOME/.bashrc
   curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.tmux.conf' > $HOME/.tmux.conf
   curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/.vimrc' > $HOME/.vimrc
-  curl -fsSL 'https://raw.githubusercontent.com/hyeondg/config/main/init.vim' > $HOME/.config/nvim/init.vim
 
   # Installing miniconda (user)
   mkdir -p ~/miniconda3
