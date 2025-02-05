@@ -349,12 +349,11 @@ elif [[ "$OS" == "Linux" ]]; then
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+  # coder
+  curl -L https://coder.com/install.sh | sh -s -- --version 2.18.5
+
   # code-server
   curl -fsSL https://code-server.dev/install.sh | sh
-
-  # coder
-  curl -L https://coder.com/install.sh | sh
-
 fi
 
 popd >/dev/null
